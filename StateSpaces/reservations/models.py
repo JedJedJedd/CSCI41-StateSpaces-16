@@ -1,3 +1,37 @@
 from django.db import models
 
 # Create your models here.
+class Building(models.Model):
+    building_name = models.CharField(max_length=255)
+    street = models.CharField(max_length=255)
+    district = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+
+class Amenity(models.Model):
+    amenity_type = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+
+class Venue(models.Model):
+    venue_name = models.CharField(max_length=255)
+    building_floor = models.IntegerField()
+    venue_type = models.CharField(max_length=255)
+    venue_capacity = models.IntegerField()
+    venue_floor_area = models.IntegerField()
+    under_renovation = models.BooleanField()
+    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='venues')
+
+class AmenityAssignment(models.Model):
+    pk = models.CompositePrimaryKey("amenity_id", "venue_id")
+    amenity = models.Foreignkey(Amenity, on_delete=models.CASCADE)
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    
+class Reservation(models.Model):
+    # customer_id = ill implement it later when i set up the profiles
+    number_of_participants = models.IntegerField()
+    reservation_start_time = models.TimeField()
+    reservation_start_date = models.DateField()
+    reservation_end_time = models.TimeField()
+    reservation_end_date = models.DateField()
+    # agent_id = ill implement this later as well
+    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
