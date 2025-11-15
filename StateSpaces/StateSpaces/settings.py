@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'accounts',
     'reservations',
+    'venues',
 ]
 
 MIDDLEWARE = [
