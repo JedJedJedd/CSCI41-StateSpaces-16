@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE-edge">
+        <meta name="viewport" content="width=device-width, initialize-scale=1.0">
+        <title>{% block title %}StateSpaces{% endblock %}</title>
+        {% block styles %} {% endblock %}
+    </head>
+    <body>
+
+    <body>
+        <h1>{% block header %}StateSpaces Header{% endblock %}</h1>
+
+        {% if request.user.is_authenticated %}
+            <h3>Welcome, {{ request.user.username }}!</h3>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">Logout</button>
+            </form>
+        {% else %}
+            <h3>Welcome!</h3>
+        {% endif %}
+
+        {% block content %} {% endblock %}
+    </body>
+</html>
