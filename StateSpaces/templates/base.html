@@ -9,7 +9,15 @@
     </head>
     <body>
 
-    <body>
+    <body style="margin: 0px;">
+        <nav class="navbar bg-body-tertiary" style="background-color: #5E6C5B;">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">
+                    <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="TempLogo" width="120" height="60" class="d-inline-block align-text-top">
+                    Temp Logo
+                </a>
+            </div>
+        </nav>
         <h1>{% block header %}StateSpaces Header{% endblock %}</h1>
 
         {% if request.user.is_authenticated %}
