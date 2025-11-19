@@ -3,5 +3,33 @@
 
 {% block title %}Reservation{% endblock %}
 {% block content %}
-<h1> confirming </h1>
+    <style>
+        .form-button{
+            background-color: #686866;
+        }
+        .form-button:hover{
+            background-color: #5E6C5B;
+            transform: scale(1.1);
+        }
+    </style>
+
+    <div class="text-center fs-1 lh-1 mt-5">Your reservation request has <br> been <span style="color: #497250;">submitted successfully!</span></div>
+    <div class="text-center fs-4 fw-bold">You will receive a confirmation email once it's approved.</div>
+
+    <div class="container p-3 border border-dark border-1" 
+    style="background-color: #D2D9D1; color: #162A2B; box-shadow: 8px 8px #B6B3AC">
+        <div class="text-center fs-1 fst-italic">Reservation Details</div>
+        <div class="fs-4">
+            <p>Venue:</p>
+            <p>Number of Participants: </p>
+            <p>Start Date & Time: </p>
+            <p>End Date & Time: </p>
+        </div>
+    </div>
+
+    <div class="d-flex flex-row-reverse me-5 mt-5">
+        <button type="submit" class="form-button btn rounded-pill p-3 me-4 fs-5" style="color: #FDFCF7;">Back to home</button>
+    </div>
+
+
 {% endblock %}
