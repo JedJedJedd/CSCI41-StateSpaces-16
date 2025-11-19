@@ -20,6 +20,6 @@ class ConfirmationListView(ListView):
     model = Reservation
     template_name = 'reservations/reservation_confirmation.html'
     
-    def get_success_url(self):
-        return reverse_lazy('forum:thread-detail',
-                            kwargs={'pk': self.object.pk})                            
+    # def get_success_url(self):
+    #     return reverse_lazy('forum:thread-detail',
+    #                         kwargs={'pk': self.object.pk})                            
