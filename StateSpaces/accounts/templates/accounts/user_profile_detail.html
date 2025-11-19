@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% endblock %}
+{% block content %}
+    <style>
+        .section-title {
+        font-size: 60px; 
+        }
+
+        .section-title2 {
+        font-size: 40px; 
+        }
+
+        .intro-text{
+            margin-top: 3%;
+        }
+
+        .p-4{
+            width: 80%;
+            align-self: center;
+        }
+
+        .d-flex{
+            padding-bottom: 1%;
+        }
+
+        .row{
+            padding: 2%;
+            margin-bottom:2%;
+        }
+
+       
+
+
+    </style>
+
+    {% if request.user.is_authenticated %}
+        <h1>Hello {{ request.user.profile.name }}!</h1>
+        {% else %}
+    {% endif %}
+
+    <h1 class="section-title text-center"><i>User Profile</i></h1>
+
+    <div class="col-md-10 mx-auto">
+        <div class="row shadow rounded" style="border: 1px solid #000 ;"> 
+            
+            <h2 class="fw-bold mb-2 text-center">Your Information</h2>
+
+                <!-- Column 1 -->
+                <div class="col-md-6 p-5">
+                    <h5 class="fw-bold mb-2">Fullname:</h5>
+                    <h5 class="fw-bold mb-2">Email Address:</h5>
+                    <h5 class="fw-bold mb-2">Contact Number:</h5>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="col-md-6 p-5" >
+                    <h5 class="fw-bold mb-2">Username:</h5>
+                    <h5 class="fw-bold mb-2">Date Joined:</h5>
+                    <h5 class="fw-bold mb-2">Membership Type:</h5>
+                </div>
+
+                <div class="d-flex justify-content-end align-items-end mt-3">
+                    <a href="#" class="btn rounded-pill" style="background-color: #686866; color: #fff;">Edit profile</a>
+                </div>
+        </div>
+    </div>
+
+    {% if is_agent %}
+        {% include "accounts/agent_profile.html" %}
+    {% else %}
+        {% include "accounts/customer_profile.html" %}
+    {% endif %}
+
+
+
+{% endblock %}
