@@ -64,17 +64,18 @@ class ProfileCreateView(CreateView):
 
     def form_valid(self, form):
         new_user = form.save(commit=False)
-        username = '{} {}'.format(
+        fullname = '{} {}'.format(
             form.cleaned_data['first_name'],
             form.cleaned_data['last_name']
         )
-        new_user.username = username
         birth_date = form.cleaned_data.get('birth_date')
         new_user.save()
         CustomerProfile.objects.create(
             user=new_user,
-            customer_name=username,
+            customer_name=fullname,
             birth_date=birth_date,
+            email=new_user.email,
+            username = new_user.username
             )
         return super().form_valid(form)
 

@@ -11,5 +11,4 @@ class CreateUserForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'birth_date', 'password1', 'password2']
-        exclude = ['email']
+        fields = ['username', 'first_name', 'last_name', 'birth_date', 'email','password1', 'password2']
