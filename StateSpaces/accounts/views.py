@@ -60,13 +60,22 @@ class ProfileListView(ListView):
 class ProfileCreateView(CreateView):
     model = User
     form_class = CreateUserForm
-    template_name = 'register.html'
+    template_name = 'accounts/register.html'
 
     def form_valid(self, form):
-        new_user = form.save()
-        customer_name = form.cleaned_data['customer_name']
+        new_user = form.save(commit=False)
+        username = '{} {}'.format(
+            form.cleaned_data['first_name'],
+            form.cleaned_data['last_name']
+        )
+        new_user.username = username
+        birth_date = form.cleaned_data.get('birth_date')
+        new_user.save()
         CustomerProfile.objects.create(
-            user=new_user, name=customer_name, email=new_user.email)
+            user=new_user,
+            customer_name=username,
+            birth_date=birth_date,
+            )
         return super().form_valid(form)
 
     def get_success_url(self):

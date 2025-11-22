@@ -1,9 +1,8 @@
 <html>
     <body>
         <form method="POST">
-            <h4>Register</h4>
+            <h4>Login</h4>
             {% csrf_token %}
-            {{ form.username.as_hidden }}
             {{ form.as_p }}
         <button type="submit">Login</button>
         </form>

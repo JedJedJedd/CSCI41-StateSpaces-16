@@ -6,12 +6,12 @@ from .models import CustomerProfile , AgentProfile, Team
 class CustomerProfileInline(admin.StackedInline):
     model = CustomerProfile
     can_delete = False
-    verbose_name_plural = 'Customer Profiles'
+    #verbose_name_plural = 'Customer Profiles'
 
 class AgentProfileInline(admin.StackedInline):
     model = AgentProfile
     can_delete = False
-    verbose_name_plural = 'Agent Profiles'
+    #verbose_name_plural = 'Agent Profiles'
 
 class UserAdmin(BaseUserAdmin):
     inlines = [CustomerProfileInline, AgentProfileInline]
