@@ -2,7 +2,11 @@ from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 from .models import CustomerProfile, AgentProfile
+from django.contrib.auth.models import User
+from .forms import CreateUserForm
+from django.urls import reverse_lazy
 # Create your views here.
 
 
@@ -52,3 +56,18 @@ class ProfileDetailView(DetailView):
 class ProfileListView(ListView):
     model = CustomerProfile
     template_name = 'accounts/user_profile_detail.html'
+
+class ProfileCreateView(CreateView):
+    model = User
+    form_class = CreateUserForm
+    template_name = 'register.html'
+
+    def form_valid(self, form):
+        new_user = form.save()
+        customer_name = form.cleaned_data['customer_name']
+        CustomerProfile.objects.create(
+            user=new_user, name=customer_name, email=new_user.email)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy("login")
