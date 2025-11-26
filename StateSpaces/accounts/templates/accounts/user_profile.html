@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% endblock %}
+{% block title %}User Profile{% endblock %}
 {% block content %}
     <style>
         .section-title {
@@ -35,11 +35,6 @@
 
     </style>
 
-    {% if request.user.is_authenticated %}
-        <h1>Hello {{ request.user.profile.name }}!</h1>
-        {% else %}
-    {% endif %}
-
     <h1 class="section-title text-center"><i>User Profile</i></h1>
 
     <div class="col-md-10 mx-auto">
@@ -49,16 +44,28 @@
 
                 <!-- Column 1 -->
                 <div class="col-md-6 p-5">
-                    <h5 class="fw-bold mb-2">Fullname:</h5>
-                    <h5 class="fw-bold mb-2">Email Address:</h5>
-                    <h5 class="fw-bold mb-2">Contact Number:</h5>
+                    <h5 class="fw-bold mb-2">Fullname: {{ user.first_name }} {{ user.last_name }}</h5>
+                    <h5 class="fw-bold mb-2">Email Address: {{ user.email }}</h5>
+                    {% if is_agent %}
+                        <h5 class="fw-bold mb-2">Contact Number: {{ profile.contact_number }}</h5>
+                    {% endif %}
+                   {% if not is_agent %}
+                    <!-- Only show this for customers -->
+                    <h5 class="fw-bold mb-2">Date of Birth: {{ profile.birth_date }}</h5>
+                    {% endif %}
+
                 </div>
 
                 <!-- Column 2 -->
                 <div class="col-md-6 p-5" >
-                    <h5 class="fw-bold mb-2">Username:</h5>
-                    <h5 class="fw-bold mb-2">Date Joined:</h5>
-                    <h5 class="fw-bold mb-2">Membership Type:</h5>
+                    <h5 class="fw-bold mb-2">Username: {{ user.username }}</h5>
+                    <h5 class="fw-bold mb-2">Membership Type:
+                    {% if is_agent %}
+                        Agent
+                    {% else %}
+                        Customer
+                    {% endif %}
+                    </h5>
                 </div>
 
                 <div class="d-flex justify-content-end align-items-end mt-3">
