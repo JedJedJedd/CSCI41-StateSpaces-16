@@ -1,11 +1,40 @@
-<html>
-    <body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Reservation{% endblock %}
+{% block content %}
+    <style>
+        .form-button{
+            background-color: #686866;
+        }
+        .form-button:hover{
+            background-color: #5E6C5B;
+            transform: scale(1.1);
+        }
+    </style>
+
+    <div class="text-center fs-1 m-3" >Customer Registration</div>
+    <div class="container">
         <form method="POST">
-            <h4>Register</h4>
             {% csrf_token %}
             {{ form.username.as_hidden }}
-            {{ form.as_p }}
-        <button type="submit">Login</button>
+
+            {% for field in form %}
+            <div class="m-5 row">
+                <div class="col-2">{{ field.label_tag }}</div>
+                <div class="col-4">
+                    {{ field }}
+                    {{ field.errors }}
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="d-flex flex-row-reverse me-5 mt-3">
+                <button type="submit" class="form-button btn btn-primary rounded-pill p-3 fs-5">Register</button>
+            </div>
+
+            
         </form>
-    </body>
-</html>
+    </div>
+
+{% endblock %}
