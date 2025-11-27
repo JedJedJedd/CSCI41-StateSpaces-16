@@ -1,7 +1,150 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Search Venues{% endblock %}
+{% block title %}Reservation{% endblock %}
 {% block content %}
-<h1>Search Venues</h1>
+    <style>
+        .form-button{
+            background-color: #686866;
+        }
+        .form-button:hover{
+            background-color: #5E6C5B;
+            transform: scale(1.1);
+        }
+    </style>
+    <form class="container"> 
+        <div class="text-center fs-1 m-3" >Search Venues</div>
+
+        <div class="row row-cols-md-2 gx-3 gy-5" style="color: #162A2B;">
+            
+            <div class="col d-flex flex-column ">
+                <div class="row my-2">
+                    <div class="col-4"><label for="venueName" class="form-label">Venue Name</label></div>
+                    <div class="col-6"><input type="text" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="venueName" aria-describedby="venueName"></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4"><label for="address" class="form-label">Address</label></div>
+                    <div class="col-6"><input type="text" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="address" aria-describedby="address"></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4"><label for="building" class="form-label">Building Name</label></div>
+                    <div class="col-6"><input type="text" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="building" aria-describedby="building"></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4"><label for="floorArea" class="form-label">Floor Area</label></div>
+                    <div class="col-6"><input type="number" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="floorArea" aria-describedby="floorArea"></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4"><label for="venueType" class="form-label">Venue Type</label></div>
+                    <div class="col-6"><input type="text" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="venueType" aria-describedby="venueType"></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col-4"><label for="venueCapacity" class="form-label">Venue Capacity</label></div>
+                    <div class="col-6"><input type="number" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="venueCapacity" aria-describedby="venueCapacity"></div>
+                </div>
+            </div>
+
+            <div class="col d-flex flex-column">
+                <div class="row row-cols-2">
+                    <div class="col-2">Amenities:</div>
+                    <div class="col-10">
+                        <div class="row row-cols-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" id="am1">
+                                <label class="form-check-label" for="am1">
+                                    Amenity 1
+                                </label>
+                            </div>  
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" id="am1">
+                                <label class="form-check-label" for="am1">
+                                    Amenity 2
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="amenities" id="am1">
+                                <label class="form-check-label" for="am1">
+                                    Amenity 3
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6">Under Renovation? </div>
+                    <div class="form-check col-3">
+                        <input class="form-check-input" type="radio" name="underRenovation" id="renovating">
+                        <label class="form-check-label" for="renovating">
+                            Yes
+                        </label>
+                    </div>  
+                    <div class="form-check col-3">
+                        <input class="form-check-input" type="radio" name="underRenovation" id="notRenovating" checked>
+                        <label class="form-check-label" for="notRenovating">
+                            No
+                        </label>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="d-flex flex-row-reverse me-5 mt-3">
+            <button type="submit" class="form-button btn btn-primary rounded-pill p-3 fs-5 me-4">Search</button>
+        </div>
+    </form>
+
+    <div class="d-flex flex-row row my-4">
+        <div class="col-5 ps-5 py-3"><hr class="border border-dark border-2 opacity-50"></div>    
+        <div class="col-2 text-center fs-1"> RESULTS </div>
+        <div class="col-5 pe-5 py-3"><hr class="border border-dark border-2 opacity-50"></div>    
+    </div>
+    
+    <div class="row row-cols-md-2 gx-3 gy-5 mx-5" style="color: #162A2B;">
+
+        <div class="col-5 d-flex justify-content-center">
+            <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC">
+                <div class="text-center fs-3 fst-italic border-dark py-1"  style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">Venue Name 1</div>
+                <div class="border border-top-0 border-dark px-4 py-3" style="background-color: #D4DBD2; border-radius: 0px 0px 25px 25px;">
+                    <p><span class="fw-bold">Building: </span> Arton by Rockwell</p>
+                    <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
+                    <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
+                    <p><span class="fw-bold">Capacity: </span> 100</p>
+                    <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
+                    <p><span class="fw-bold">Status: </span> Reserved</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5 d-flex justify-content-center">
+            <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC">
+                <div class="text-center fs-3 fst-italic border-dark py-1"  style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">Venue Name 1</div>
+                <div class="border border-top-0 border-dark px-4 py-3" style="background-color: #D4DBD2; border-radius: 0px 0px 25px 25px;">
+                    <p><span class="fw-bold">Building: </span> Arton by Rockwell</p>
+                    <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
+                    <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
+                    <p><span class="fw-bold">Capacity: </span> 100</p>
+                    <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
+                    <p><span class="fw-bold">Status: </span> Reserved</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5 d-flex justify-content-center">
+            <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC">
+                <div class="text-center fs-3 fst-italic border-dark py-1"  style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">Venue Name 1</div>
+                <div class="border border-top-0 border-dark px-4 py-3" style="background-color: #D4DBD2; border-radius: 0px 0px 25px 25px;">
+                    <p><span class="fw-bold">Building: </span> Arton by Rockwell</p>
+                    <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
+                    <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
+                    <p><span class="fw-bold">Capacity: </span> 100</p>
+                    <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
+                    <p><span class="fw-bold">Status: </span> Reserved</p>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 {% endblock %}
