@@ -73,6 +73,9 @@ class AgentProfile(models.Model):
     username = models.CharField(max_length=100)
     template_name = 'accounts/customer_profile.html' 
 
+    class Meta:
+        permissions = [("can_add_venue", "Can add venue")]
+
     def get_profile_url(self):
         return reverse('accounts:agent-profile', kwargs={'username': self.user.username})
 

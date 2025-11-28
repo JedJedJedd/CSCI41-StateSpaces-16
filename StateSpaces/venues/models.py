@@ -21,7 +21,9 @@ class Venue(models.Model):
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='venues')
 
 class AmenityAssignment(models.Model):
-    pk = models.CompositePrimaryKey("amenity_id", "venue_id")
     amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=1)
+
+    class Meta:
+        unique_together = ('amenity', 'venue')
