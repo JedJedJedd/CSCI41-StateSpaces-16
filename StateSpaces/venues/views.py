@@ -13,7 +13,7 @@ class VenuesListView(ListView):
 
 class VenuesSearchListView(ListView):
      model = Venue
-     template_name = 'venues/search_venues.html'     
+     template_name = 'venues/search_venues.html'
 
 class VenuesCreateView(PermissionRequiredMixin, CreateView):
      model = Venue
@@ -37,4 +37,3 @@ class VenueDetailView(DetailView):
         ctx["amenities"] = self.object.amenityassignment_set.select_related("amenity")
         return ctx
      
-
