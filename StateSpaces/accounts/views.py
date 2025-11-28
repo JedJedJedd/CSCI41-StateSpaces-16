@@ -12,7 +12,7 @@ from django.urls import reverse_lazy
 
 class ProfileDetailView(DetailView):
     model = CustomerProfile
-    template_name = 'accounts/user_profile_detail.html'
+    template_name = 'accounts/user_profile.html'
     context_object_name = 'profile'
 
     slug_field = 'user__username'
