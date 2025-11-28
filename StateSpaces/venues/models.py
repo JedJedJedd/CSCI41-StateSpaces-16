@@ -23,7 +23,7 @@ class Venue(models.Model):
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='venues')
 
     def __str__(self):
-        return self.title
+        return self.venue_name
     
     def get_absolute_url(self):
         return reverse('venues:venues-detail', args=[str(self.pk)])
