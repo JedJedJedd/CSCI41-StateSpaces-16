@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
+from django.urls import reverse_lazy
 from .models import Venue
 from .forms import VenueForm
 
@@ -18,19 +19,18 @@ class VenuesSearchListView(ListView):
 class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      model = Venue
      template_name = 'venues/venue_add.html'
-     permission_required = "venue.can_add_venue"
      form_class = VenueForm
 
      def test_func(self):
           return hasattr(self.request.user, "agent_profile")
 
      def get_success_url(self):
-          return reverse_lazy('venues:create-view')
+          return reverse_lazy('venues:venues-list')
      
      def form_valid(self, form):
-          form.instance.author = self.request.user.profile
-          return super().form_vaild(form)
-
+          form.instance.author = self.request.user.agent_profile
+          return super().form_valid(form)
+     
 class VenuesDetailView(DetailView):
      model = Venue
      template_name = 'venues/venue_detail.html'
@@ -39,4 +39,4 @@ class VenuesDetailView(DetailView):
         ctx = super().get_context_data(**kwargs)
         ctx["amenities"] = self.object.amenityassignment_set.select_related("amenity")
         return ctx
-     
+   
