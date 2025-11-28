@@ -77,8 +77,16 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+                                <a class="nav-link active" href="#" id="logout-link">Logout</a>
                             </li>
+                            <form id="logout-form" action="{% url 'logout' %}" method="POST" hidden>
+                                {% csrf_token %}
+                            </form>
+                            <script>
+                            document.getElementById('logout-link').addEventListener('click', function (e) {
+                                document.getElementById('logout-form').submit();
+                            });
+                            </script>
 
                         {% else %}
                         <!-- If user is NOT logged in-->
