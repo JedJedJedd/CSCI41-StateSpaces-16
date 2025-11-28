@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Venue, Building, AmenityAssignment
+from .models import Venue, Building, AmenityAssignment, Amenity
 
 
 class VenueInline(admin.TabularInline):
@@ -16,4 +16,5 @@ class BuildingAdmin(admin.ModelAdmin):
 
 admin.site.register(Building, BuildingAdmin)
 admin.site.register(Venue)
-#admin.site.register(AmenityAssignment)
+admin.site.register(Amenity)
+admin.site.register(AmenityAssignment)

@@ -14,6 +14,9 @@ class Amenity(models.Model):
     amenity_type = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.amenity_type
+    
 class Venue(models.Model):
     venue_name = models.CharField(max_length=255)
     building_floor = models.IntegerField()
@@ -37,3 +40,6 @@ class AmenityAssignment(models.Model):
 
     class Meta:
         unique_together = ('amenity', 'venue')
+
+    def __str__(self):
+        return f"{self.amenity.amenity_type} @ {self.venue.venue_name} (x{self.quantity})"
