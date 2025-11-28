@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from .models import Venue
-from .forms import BuildingForm, AmenityForm, VenueForm
+from .forms import VenueForm
 # Create your views here.
 class VenuesListView(ListView):
      model = Venue
@@ -12,9 +13,10 @@ class VenuesSearchListView(ListView):
      model = Venue
      template_name = 'venues/search_venues.html'     
 
-class VenuesCreateView(CreateView):
+class VenuesCreateView(PermissionRequiredMixin, CreateView):
      model = Venue
      template_name = 'venues/venue_add.html'
+     permission_required = "user.can_add_venue"
      form_class = VenueForm
 
      def get_success_url(self):
