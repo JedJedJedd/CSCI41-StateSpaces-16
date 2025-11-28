@@ -31,7 +31,7 @@ class VenuesCreateView(PermissionRequiredMixin, CreateView):
 class VenuesDetailView(DetailView):
      model = Venue
      template_name = 'venues/venue_detail.html'
-
+     
      def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["amenities"] = self.object.amenityassignment_set.select_related("amenity")
