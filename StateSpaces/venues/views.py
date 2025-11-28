@@ -28,7 +28,7 @@ class VenuesCreateView(PermissionRequiredMixin, CreateView):
           form.instance.author = self.request.user.profile
           return super().form_vaild(form)
 
-class VenueDetailView(DetailView):
+class VenuesDetailView(DetailView):
      model = Venue
      template_name = 'venues/venue_detail.html'
 

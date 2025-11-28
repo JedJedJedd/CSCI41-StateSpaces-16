@@ -6,6 +6,9 @@ class Building(models.Model):
     street = models.CharField(max_length=255)
     district = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
+    
+    def __str__(self):
+        return self.building_name
 
 class Amenity(models.Model):
     amenity_type = models.CharField(max_length=255)
