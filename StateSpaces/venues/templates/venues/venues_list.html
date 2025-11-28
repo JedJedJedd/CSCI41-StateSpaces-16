@@ -7,12 +7,24 @@
         <img src="{% static 'images/venue1.png' %}" class="img-fluid rounded" alt="Banner Image">
     </div>
     <div class="text-center fs-1 fst-italic my-4">Our Venues</div>
+
+    <!-- Instruction -->
+    <div class="text-center mb-4">
+        <p class="fst-italic" style="color: #495444;">
+            Click on a venue name to see more details.
+        </p>
+    </div>
     
     <div class="row row-cols-md-2 gx-3 gy-5 mx-5" style="color: #162A2B;">
     {% for venue in object_list %}
         <div class="col-5 d-flex justify-content-center">
             <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC">
-                <div class="text-center fs-3 fst-italic border-dark py-1"  style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">{{ venue.venue_name }}</div>
+                <div class="text-center fs-3 fst-italic border-dark py-1"  
+                     style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">
+                    <a href="{% url 'venues:venues-detail' venue.pk %}" style="color: #F3EFE6; text-decoration: none;">
+                        {{ venue.venue_name }}
+                    </a>
+                </div>
                 <div class="border border-top-0 border-dark px-4 py-3" style="background-color: #D4DBD2; border-radius: 0px 0px 25px 25px;">
                     <p><span class="fw-bold">Building: </span> {{ venue.building.building_name }}</p>
                     <p><span class="fw-bold">Address: </span>{{ venue.building.district }} {{ venue.building.street }}, {{ venue.building.city }}</p>
