@@ -13,13 +13,13 @@ class VenueForm(forms.ModelForm):
         fields = ['venue_name', 'building_floor', 'venue_type', 'venue_capacity', 'venue_floor_area', 'under_renovation', 'building']
 
 
-class AmenityForm():
+class AmenityForm(forms.ModelForm):
     class Meta:
         model = Amenity
         fields = ['amenity_type', 'description']
 
 
-class AmenityAssignmentForm():
+class AmenityAssignmentForm(forms.ModelForm):
     class Meta:
         model = AmenityAssignment
         fields = ['amenity', 'venue', 'quantity']
