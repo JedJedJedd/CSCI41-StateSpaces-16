@@ -7,6 +7,7 @@ urlpatterns = [
     path('<id>/', VenuesDetailView.as_view(), name='venues-detail'),
     path('create/', VenuesCreateView.as_view(), name = 'venues-create'),
     path('<int:pk>/', VenuesDetailView.as_view(), name='venues-detail'),
+
 ]
 
 app_name = 'venues'
