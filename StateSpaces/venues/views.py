@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
 from .models import Venue
 from .forms import VenueForm
@@ -15,11 +15,14 @@ class VenuesSearchListView(ListView):
      model = Venue
      template_name = 'venues/search_venues.html'     
 
-class VenuesCreateView(PermissionRequiredMixin, CreateView):
+class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      model = Venue
      template_name = 'venues/venue_add.html'
-     permission_required = "user.can_add_venue"
+     permission_required = "venue.can_add_venue"
      form_class = VenueForm
+
+     def test_func(self):
+          return hasattr(self.request.user, "agent_profile")
 
      def get_success_url(self):
           return reverse_lazy('venues:create-view')
@@ -28,7 +31,7 @@ class VenuesCreateView(PermissionRequiredMixin, CreateView):
           form.instance.author = self.request.user.profile
           return super().form_vaild(form)
 
-class VenueDetailView(DetailView):
+class VenuesDetailView(DetailView):
      model = Venue
      template_name = 'venues/venue_detail.html'
 

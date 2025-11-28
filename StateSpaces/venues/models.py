@@ -20,6 +20,13 @@ class Venue(models.Model):
     under_renovation = models.BooleanField()
     building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='venues')
 
+    def __str__(self):
+        return self.title
+    
+    def get_absolute_url(self):
+        return reverse('venues:venues-detail', args=[str(self.pk)])
+
+
 class AmenityAssignment(models.Model):
     amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)

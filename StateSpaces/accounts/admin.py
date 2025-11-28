@@ -20,17 +20,11 @@ class UserAdmin(BaseUserAdmin):
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'team_assignment')
 
-class VenueAdmin(admin.ModelAdmin):
-    list_display = ('venue_name', 'building', 'agent', 'floor', 'venue_type', 'venue_capacity', 'under_renovation')
-    list_filter = ('building', 'agent', 'venue_type', 'under_renovation')
-    search_fields = ('venue_name', 'building__building_name', 'agent__agent_name')
-
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(Team, TeamAdmin)
-admin.site.register(Building)
-admin.site.register(Venue, VenueAdmin)
+
 
 
 # Register your models here.
