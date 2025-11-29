@@ -6,8 +6,9 @@ from django.views.generic.edit import CreateView
 from .models import CustomerProfile, AgentProfile
 from reservations.models import Reservation
 from django.contrib.auth.models import User
-from .forms import CreateUserForm
+from .forms import CreateUserForm, CreateAgentForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 # Create your views here.
 
 
@@ -89,3 +90,12 @@ class ProfileCreateView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy("login")
+    
+class AgentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
+    form_class = CreateAgentForm
+    template_name = 'accounts/register.html'
+    success_url = reverse_lazy('accounts:profile-list')
+
+    def test_func(self):
+        u = self.request.user
+        return u.is_superuser or AgentProfile.objects.filter(user=u).exists()
