@@ -4,13 +4,12 @@ from datetime import datetime
 
 # Create your models here.
 class Reservation(models.Model):
-    # customer_id = ill implement it later when i set up the profiles
+    customer = models.ForeignKey("accounts.CustomerProfile", on_delete=models.RESTRICT)
     number_of_participants = models.IntegerField()
     reservation_start_time = models.TimeField()
     reservation_start_date = models.DateField()
     reservation_end_time = models.TimeField()
     reservation_end_date = models.DateField()
-    # agent_id = ill implement this later as well
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE, related_name='reservations')
 
     def start_datetime(self):
