@@ -1,109 +1,42 @@
-
+<!--If the user is a customer-->
+<div class="col-md-10 mx-auto">
     <div class="row">
 
-        <!-- Title 1 -->
-        <div class="d-flex justify-content-center align-items-center my-1">
+        <!--Title-->
+        <div class="d-flex justify-content-center align-items-center my-4">
             <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
-            <h2 class="fw-bold mb-2 mx-3 my-0" style="white-space: nowrap;">Upcoming Reservations</h2>
+            <h2 class="fw-bold mb-2 mx-3 my-0" style="white-space: nowrap;">All Reservations</h2>
             <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
         </div>
 
-        <!-- Upcoming Venues -->
-        <div class="row g-4">
-
-            <!-- Venue 1 -->
-            <div class="col-md-6">
+        <!-- Reservation Cards -->
+        {% if all_reservations %}
+            {% for reservation in all_reservations %}
+            <div class="col-md-6 mb-4">
                 <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC; width: 100%;">
+
+                    <!-- Venue Name -->
                     <div class="text-center fs-3 fst-italic py-1"
                          style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0 0;">
-                        Arton by Rockwell
+                        {{ reservation.venue.venue_name }}
                     </div>
+
+                    <!-- Reservation Details -->
                     <div class="border border-top-0 border-dark px-4 py-3"
                          style="background-color: #D4DBD2; border-radius: 0 0 25px 25px;">
-                        <p><span class="fw-bold">Building: </span> West Tower</p>
-                        <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
-                        <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
-                        <p><span class="fw-bold">Capacity: </span> 100</p>
-                        <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
-                        <p><span class="fw-bold">Date & Time: </span> January 1, 2026 (10:00AM) — January 2, 2026 (5:00 PM)</p>
+                        <p><span class="fw-bold">Building: </span> {{ reservation.venue.building.building_name }}</p>
+                        <p><span class="fw-bold">Address: </span> {{ reservation.venue.building.street }}, {{ reservation.venue.building.city }}</p>
+                        <p><span class="fw-bold">Start: </span> {{ reservation.start_datetime }}</p>
+                        <p><span class="fw-bold">End: </span> {{ reservation.end_datetime }}</p>
+                        <p><span class="fw-bold">Participants: </span> {{ reservation.number_of_participants }}</p>
+                        <p><span class="fw-bold">Agent: </span> {{ reservation.venue.agent.agent_name|default:reservation.venue.agent.user.get_full_name }}</p>
                     </div>
                 </div>
             </div>
-
-            <!-- Venue 2 -->
-            <div class="col-md-6">
-                <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC; width: 100%;">
-                    <div class="text-center fs-3 fst-italic py-1"
-                         style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0 0;">
-                        Arton by Rockwell
-                    </div>
-                    <div class="border border-top-0 border-dark px-4 py-3"
-                         style="background-color: #D4DBD2; border-radius: 0 0 25px 25px;">
-                        <p><span class="fw-bold">Building: </span> West Tower</p>
-                        <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
-                        <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
-                        <p><span class="fw-bold">Capacity: </span> 100</p>
-                        <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
-                        <p><span class="fw-bold">Date & Time: </span> January 1, 2026 (10:00AM) — January 2, 2026 (5:00 PM)</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-center">No reservations found.</p>
+        {% endif %}
 
     </div>
-
-
-    <div class="row">
-
-        <!-- Title 2 -->
-        <div class="d-flex justify-content-center align-items-center my-1">
-            <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
-            <h2 class="fw-bold mb-2 mx-3 my-0" style="white-space: nowrap;">Past Reservations</h2>
-            <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
-        </div>
-
-        <!-- Past Venues -->
-        <div class="row g-4">
-            <!-- Venue 1 -->
-            <div class="col-md-6">
-                <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC; width: 100%;">
-                    <div class="text-center fs-3 fst-italic py-1"
-                         style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0 0;">
-                        Arton by Rockwell
-                    </div>
-                    <div class="border border-top-0 border-dark px-4 py-3"
-                         style="background-color: #D4DBD2; border-radius: 0 0 25px 25px;">
-                        <p><span class="fw-bold">Building: </span> West Tower</p>
-                        <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
-                        <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
-                        <p><span class="fw-bold">Capacity: </span> 100</p>
-                        <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
-                        <p><span class="fw-bold">Date & Time: </span> January 1, 2026 (10:00AM) — January 2, 2026 (5:00 PM)</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Venue 2 -->
-            <div class="col-md-6">
-                <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC; width: 100%;">
-                    <div class="text-center fs-3 fst-italic py-1"
-                         style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0 0;">
-                        Arton by Rockwell
-                    </div>
-                    <div class="border border-top-0 border-dark px-4 py-3"
-                         style="background-color: #D4DBD2; border-radius: 0 0 25px 25px;">
-                        <p><span class="fw-bold">Building: </span> West Tower</p>
-                        <p><span class="fw-bold">Address: </span> Aurora Blvd., Quezon City</p>
-                        <p><span class="fw-bold">Amenities: </span> Amenity 1 • Amenity 2 • Amenity 3 • Amenity 4 • Amenity 5</p>
-                        <p><span class="fw-bold">Capacity: </span> 100</p>
-                        <p><span class="fw-bold">Agent: </span> Jose Rizal</p>
-                        <p><span class="fw-bold">Date & Time: </span> January 1, 2026 (10:00AM) — January 2, 2026 (5:00 PM)</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-
+</div>

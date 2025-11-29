@@ -22,18 +22,8 @@
                     <p><strong>Floor:</strong> {{ object.building_floor }}</p>
                     <p><strong>Type:</strong> {{ object.venue_type }}</p>
                     <p><strong>Capacity:</strong> {{ object.venue_capacity }}</p>
-                    <p><strong>Floor Area:</strong> {{ object.venue_floor_area }} m²</p>
-                    <p>
-                        <strong>Status:</strong>
-                        {% if object.under_renovation %}
-                            Under Renovation
-                        {% else %}
-                            Bookable
-                        {% endif %}
-                    </p>
+                    <p><strong>Status:</strong> {% if object.under_renovation %}Under Renovation{% else %}Bookable{% endif %}</p>
                     <p><strong>Agent:</strong> {{ object.agent }}</p>
-
-                    
                 </div>
             </div>
         </div>
@@ -62,30 +52,43 @@
         </div>
     </div>
 
-    <!-- Reservations Table -->
-    <div class="table-responsive mt-4">
-        <table class="table table-striped table-bordered">
-            <thead style="background-color: #495444; color: #F3EFE6; text-align: center;">
-                <tr>
-                    <th>Customer Name</th>
-                    <th>Reservation Start</th>
-                    <th>Reservation End</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reservation in reservations %}
-                <tr>
-                    <td>{{ reservation.customer.username }}</td>
-                    <td>{{ reservation.start_datetime|date:"M d, Y H:i" }}</td>
-                    <td>{{ reservation.end_datetime|date:"M d, Y H:i" }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4" class="text-center">No reservations found.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    
+    <!-- Reservations Section -->
+<div class="my-5">
+    <div class="d-flex justify-content-center align-items-center mb-3">
+        <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
+        <h2 class="fw-bold mx-3 my-0">Reservations</h2>
+        <div class="flex-grow-1" style="border-top: 1px solid #000;"></div>
     </div>
+
+    <div class="row g-4">
+        {% for reservation in reservations %}
+        <div class="col-md-6">
+            <div class="card" style="border-radius: 15px; box-shadow: 5px 5px #B6B3AC; display: flex; flex-direction: row;">
+                <!-- Date Section -->
+                <div style="background-color: #5E6C5B; color: #F3EFE6; padding: 15px; min-width: 160px; 
+                            display: flex; flex-direction: column; justify-content: center; align-items: center;
+                            text-align: center; border-radius: 15px 0 0 15px;">
+                    <div>{{ reservation.start_datetime|date:"M d, Y" }}</div>
+                    <div style="font-size: 0.9rem;">to</div>
+                    <div>{{ reservation.end_datetime|date:"M d, Y" }}</div>
+                </div>
+
+                <!-- Details Section -->
+                <div class="card-body">
+                    <p><strong>Customer:</strong> {{ reservation.customer.username }}</p>
+                    <p><strong>Start Time:</strong> {{ reservation.start_datetime|date:"H:i" }}</p>
+                    <p><strong>End Time:</strong> {{ reservation.end_datetime|date:"H:i" }}</p>
+                    <p><strong>Participants:</strong> {{ reservation.number_of_participants }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center fst-italic">No reservations found.</p>
+        {% endfor %}
+    </div>
+</div>
+
+
 </div>
 {% endblock %}

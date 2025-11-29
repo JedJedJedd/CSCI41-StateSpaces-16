@@ -4,6 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
 from .models import CustomerProfile, AgentProfile
+from reservations.models import Reservation
 from django.contrib.auth.models import User
 from .forms import CreateUserForm
 from django.urls import reverse_lazy
@@ -37,6 +38,9 @@ class ProfileDetailView(DetailView):
 
         ctx['is_agent'] = isinstance(profile, AgentProfile)
         ctx['is_customer'] = isinstance(profile, CustomerProfile)
+
+        reservations = Reservation.objects.filter(customer=profile)
+        ctx['all_reservations'] = reservations
         return ctx
 
         # code block below is temporary

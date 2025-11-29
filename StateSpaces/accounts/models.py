@@ -57,7 +57,7 @@ class CustomerProfile(models.Model):
     username = models.CharField(max_length=100)
 
     def __str__(self):
-        return f"{self.user.get_full_name()} (Customer)"
+        return self.customer_name
     
     def get_profile_url(self):
         return reverse('accounts:profile', kwargs={'username': self.user.username})
