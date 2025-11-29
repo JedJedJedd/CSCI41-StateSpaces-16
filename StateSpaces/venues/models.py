@@ -52,6 +52,16 @@ class Venue(models.Model):
     def get_absolute_url(self):
         return reverse('venues:venues-detail', args=[str(self.pk)])
 
+    # def clean(self):
+    #     super().clean()
+    #     errors = []
+
+    #     if self.building != self.agent.building:
+    #         errors.append(
+    #             f"You are not assigned to the selected building. Please select {self.agent.building}."
+    #         )
+
+
 
 class AmenityAssignment(models.Model):
     amenity = models.ForeignKey(Amenity, on_delete=models.CASCADE)

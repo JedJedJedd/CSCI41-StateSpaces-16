@@ -1,5 +1,6 @@
 from django import forms
 from .models import Building, Venue, Amenity, AmenityAssignment
+from django.core.exceptions import ValidationError
 
 class BuildingForm(forms.ModelForm):
     class Meta:
@@ -9,6 +10,7 @@ class BuildingForm(forms.ModelForm):
 
 class VenueForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
         for amenity in Amenity.objects.all():
             field_name = f"amenity_{amenity.id}"
@@ -47,6 +49,22 @@ class VenueForm(forms.ModelForm):
 
         }
 
+    def clean(self):
+        cleaned = super().clean()
+
+        if not self.request:
+            return cleaned
+        
+        selected_building = cleaned.get("building")
+        assigned_building = self.request.user.agent_profile.building
+
+        if selected_building != assigned_building:
+            self.add_error(
+                "building",
+                f"You are not assigned to this building. Please select {assigned_building}."
+            )
+        return cleaned
+
     def save(self, commit=True):
         venue = super().save(commit=commit)
 
@@ -57,7 +75,6 @@ class VenueForm(forms.ModelForm):
                 assignment, created = AmenityAssignment.objects.get_or_create(
                     venue=venue,
                     amenity=amenity,
-                    #quantity=qty,
                 )
                 assignment.quantity = qty
                 assignment.save()

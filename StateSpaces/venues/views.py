@@ -55,6 +55,11 @@ class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      template_name = 'venues/venue_add.html'
      form_class = VenueForm
 
+     def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request   # <-- Pass request to form
+        return kwargs
+
      def test_func(self):
           return hasattr(self.request.user, "agent_profile")
 
