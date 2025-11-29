@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
@@ -79,4 +79,12 @@ class VenuesDetailView(DetailView):
         ctx["amenities"] = AmenityAssignment.objects.select_related("amenity").filter(venue=self.object)
         ctx["reservations"] = self.object.reservations.all()
         return ctx
+     
+class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+     model = Venue
+     template_name = 'venues/venue_update.html'
+     form_class = VenueForm
+
+     def get_success_url(self):
+          return reverse_lazy('venues:venue-detail', kwargs={'pk': self.get_object().pk})
    
