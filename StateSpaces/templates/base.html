@@ -62,7 +62,7 @@
                         <!-- If user is logged in-->
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{% url 'main_interface:homepage' %}">
                                     Hello, {{ request.user.username }}! | 
                                 </a>
                             </li>
@@ -78,6 +78,10 @@
                                <a class="nav-link active" href="{% url 'venues:venues-create' %}">Add Venue</a>
                             </li>
                             {% endif %}
+
+                            <li class="nav-item">
+                               <a class="nav-link active" href="{% url 'reservations:reservation' %}">Reserve</a>
+                            </li>
 
                             <li class="nav-item">
                                <a class="nav-link active" href="{% url 'accounts:profile' username=request.user.username %}">Profile</a>
