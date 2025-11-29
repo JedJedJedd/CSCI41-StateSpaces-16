@@ -25,9 +25,9 @@
                         <div class="border border-top-0 border-dark px-4 py-3"
                             style="background-color: #D4DBD2; border-radius: 0 0 25px 25px;">
                             <p><span class="fw-bold">Building: </span> {{ venue.building.building_name }}</p>
-                            <p><span class="fw-bold">Address: </span> {{ venue.building.street }}, {{ venue.building.city }}</p>
+                            <p><span class="fw-bold">Address: </span>{{ venue.building.district }} {{ venue.building.street }}, {{ venue.building.city }}</p>
                             <p><span class="fw-bold">Capacity: </span> {{ venue.venue_capacity }}</p>
-                            <p><span class="fw-bold">Floor: </span> {{ venue.floor }}</p>
+                            <p><span class="fw-bold">Floor: </span> {{ venue.building_floor }}</p>
                             <p><span class="fw-bold">Agent: </span> {{ profile.agent_name|default:profile.user.get_full_name }}</p>
                             <p><span class="fw-bold">Under Renovation: </span> 
                                 {% if venue.under_renovation == 'Y' %}Yes{% else %}No{% endif %}
