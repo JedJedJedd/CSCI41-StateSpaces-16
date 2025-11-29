@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from .models import Venue, AmenityAssignment
 from .forms import VenueForm
+from django.db.models import Q
 
 # Create your views here.
 class VenuesListView(ListView):
@@ -15,6 +16,13 @@ class VenuesListView(ListView):
 class VenuesSearchListView(ListView):
      model = Venue
      template_name = 'venues/search_venues.html'
+
+     def get_queryset(self):
+          qs = super().get_queryset()
+          s = self.request.GET.get("q", "")
+          if s:
+               qs = qs.filter(Q(venue_name__icontains=s)| Q(building__building_name__icontains=s) | Q(venue_type__icontains=s))
+          return super().get_queryset()
 
 class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      model = Venue
