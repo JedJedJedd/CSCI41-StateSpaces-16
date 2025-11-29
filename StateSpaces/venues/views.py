@@ -57,7 +57,7 @@ class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
 
      def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["request"] = self.request   # <-- Pass request to form
+        kwargs["request"] = self.request
         return kwargs
 
      def test_func(self):
