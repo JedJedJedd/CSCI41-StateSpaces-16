@@ -65,17 +65,6 @@ class Venue(models.Model):
         """Return the URL to the venue's detail page."""
         return reverse('venues:venues-detail', args=[str(self.pk)])
 
-    # def clean(self):
-    #     super().clean()
-    #     errors = []
-
-    #     if self.building != self.agent.building:
-    #         errors.append(
-    #             f"You are not assigned to the selected building. Please select {self.agent.building}."
-    #         )
-
-
-
 class AmenityAssignment(models.Model):
     """Model representing the assignment of amenities to venues, including quantity.
     
