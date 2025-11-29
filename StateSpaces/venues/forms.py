@@ -1,6 +1,7 @@
 from django import forms
 
 from .models import Building, Venue, Amenity, AmenityAssignment
+from django.core.exceptions import ValidationError
 
 class BuildingForm(forms.ModelForm):
     """Form for creating/editing Building instances."""
@@ -18,7 +19,7 @@ class VenueForm(forms.ModelForm):
     """
 
     def __init__(self, *args, **kwargs):
-        """Dynamically add BooleanField and IntegerField for each Amenity."""
+        self.request = kwargs.pop("request", None)
         super().__init__(*args, **kwargs)
         for amenity in Amenity.objects.all():
             field_name = f"amenity_{amenity.id}"
@@ -65,6 +66,22 @@ class VenueForm(forms.ModelForm):
 
         }
 
+    def clean(self):
+        cleaned = super().clean()
+
+        if not self.request:
+            return cleaned
+        
+        selected_building = cleaned.get("building")
+        assigned_building = self.request.user.agent_profile.building
+
+        if selected_building != assigned_building:
+            self.add_error(
+                "building",
+                f"You are not assigned to this building. Please select {assigned_building}."
+            )
+        return cleaned
+
     def save(self, commit=True):
         """Saves the Venue and creates related AmenityAssignment records.
 
@@ -77,10 +94,9 @@ class VenueForm(forms.ModelForm):
             checked = self.cleaned_data.get(f"amenity_{amenity.id}")
             qty = self.cleaned_data.get(f"amenity_qty_{amenity.id}") or 1
             if checked:
-                AmenityAssignment.objects.create(
-                    venue=venue, 
-                    amenity=amenity, 
-                    quantity=qty,
+                assignment, created = AmenityAssignment.objects.get_or_create(
+                    venue=venue,
+                    amenity=amenity,
                 )
 
         # Handles other amenities and creates new Amenity if provided

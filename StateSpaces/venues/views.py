@@ -69,6 +69,11 @@ class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      template_name = 'venues/venue_add.html'
      form_class = VenueForm
 
+     def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
      def test_func(self):
           """Only agents can create venues."""
           return hasattr(self.request.user, "agent_profile")
