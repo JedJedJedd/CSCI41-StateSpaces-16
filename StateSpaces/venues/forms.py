@@ -66,7 +66,6 @@ class VenueForm(forms.ModelForm):
                     venue=venue,
                     amenity=amenity,
                 ).delete()
-                # AmenityAssignment.objects.create(venue=venue, amenity=amenity, quantity=qty,)
 
         other_name = self.cleaned_data.get("other_amenity")
         other_qty = self.cleaned_data.get("other_quantity")
@@ -83,7 +82,5 @@ class VenueForm(forms.ModelForm):
             )
             
             assignment.save()
-            # new_amenity = Amenity.objects.create(amenity_type=other_name, description=other_name)
-            # AmenityAssignment.objects.create(venue=venue, amenity=new_amenity, quantity=other_qty)
 
         return venue
