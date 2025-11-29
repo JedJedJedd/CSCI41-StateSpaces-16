@@ -11,9 +11,7 @@ from .models import CustomerProfile, AgentProfile
 from reservations.models import Reservation
 
 class ProfileDetailView(DetailView):
-    """ 
-    Display the profile page for either a customer or an agent.
-    """
+    """Display the profile page for either a customer or an agent."""
 
     model = CustomerProfile
     template_name = 'accounts/user_profile.html'
@@ -23,9 +21,7 @@ class ProfileDetailView(DetailView):
     slug_url_kwarg = 'username'
 
     def get_object(self):
-        """
-        Return the profile for the given username.
-        """
+        """Return the profile for the given username."""
         username = self.kwargs.get('username')
 
         # Attempts to return CustomerProfile first.
@@ -38,9 +34,7 @@ class ProfileDetailView(DetailView):
         return get_object_or_404(AgentProfile, user__username=username)
 
     def get_context_data(self, **kwargs):
-        """ 
-        Add related data to the template context.
-        """
+        """Add related data to the template context."""
         context = super().get_context_data(**kwargs)
         profile = context['profile']
 
@@ -62,9 +56,7 @@ class ProfileDetailView(DetailView):
 
 
 class ProfileListView(ListView):
-    """
-    Displays a list of all customer profiles.
-    """
+    """Displays a list of all customer profiles."""
 
     model = CustomerProfile
     template_name = 'accounts/user_profile_detail.html'
@@ -80,9 +72,7 @@ class ProfileCreateView(CreateView):
     template_name = 'accounts/register.html'
 
     def form_valid(self, form):
-        """
-        Save User first, then create corresponding CustomerProfile.
-        """
+        """Save User first, then create corresponding CustomerProfile."""
         new_user = form.save(commit=False)
 
         fullname = '{} {}'.format(
@@ -104,9 +94,7 @@ class ProfileCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        """
-        Redirects to login page after registration.
-        """
+        """Redirects to login page after registration."""
         return reverse_lazy("login")
     
 class AgentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -120,9 +108,7 @@ class AgentCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     success_url = reverse_lazy('accounts:profile-list')
 
     def test_func(self):
-        """
-        Restricts access so only superusers or existing agents are allowed to create new agents
-        """
+        """Restricts access so only superusers or existing agents are allowed to create new agents"""
 
         u = self.request.user
         return u.is_superuser or AgentProfile.objects.filter(user=u).exists()
