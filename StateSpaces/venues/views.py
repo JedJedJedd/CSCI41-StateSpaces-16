@@ -20,8 +20,16 @@ class VenuesSearchListView(ListView):
      def get_queryset(self):
           qs = super().get_queryset()
           s = self.request.GET.get("q", "")
+          reno = self.request.GET.get("renovation")
+
           if s:
-               qs = qs.filter(Q(venue_name__icontains=s)| Q(building__building_name__icontains=s) | Q(venue_type__icontains=s))
+               qs = qs.filter(Q(venue_name__icontains=s)| Q(building__building_name__icontains=s) | Q(venue_type__icontains=s) |
+                              Q(venue_floor_area__icontains=s) | Q(venue_capacity__icontains=s) | Q(building__city__icontains=s) |
+                              Q(under_renovation__icontains=s))
+               
+          if reno:
+            qs = qs.filter(under_renovation=True)
+          
           return super().get_queryset()
 
 class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
