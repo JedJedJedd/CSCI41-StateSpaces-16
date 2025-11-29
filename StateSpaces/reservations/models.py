@@ -82,6 +82,9 @@ class Reservation(models.Model):
                 "This time slot conflicts with an existing reservation."
             )
         
+        if new_start >= new_end:
+            raise ValidationError("The reservation end date/time must be after the start date/time.")
+        
         if errors:
             raise ValidationError(errors)
 
