@@ -39,8 +39,12 @@ class ProfileDetailView(DetailView):
         ctx['is_agent'] = isinstance(profile, AgentProfile)
         ctx['is_customer'] = isinstance(profile, CustomerProfile)
 
-        reservations = Reservation.objects.filter(customer=profile)
-        ctx['all_reservations'] = reservations
+        if ctx['is_customer']:
+            ctx['all_reservations'] = Reservation.objects.filter(customer=profile)
+        elif ctx['is_agent']:
+            ctx['all_venues'] = profile.venues.all()  # assuming a related_name of 'venues'
+        else:
+            ctx['all_reservations'] = None
         return ctx
 
         # code block below is temporary
