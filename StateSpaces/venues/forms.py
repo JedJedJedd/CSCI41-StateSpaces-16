@@ -54,14 +54,33 @@ class VenueForm(forms.ModelForm):
             checked = self.cleaned_data.get(f"amenity_{amenity.id}")
             qty = self.cleaned_data.get(f"amenity_qty_{amenity.id}") or 1
             if checked:
-                AmenityAssignment.objects.create(venue=venue, amenity=amenity, quantity=qty,)
+                assignment, created = AmenityAssignment.objects.get_or_create(
+                    venue=venue,
+                    amenity=amenity,
+                    #quantity=qty,
+                )
+                assignment.quantity = qty
+                assignment.save()
+            else:
+                AmenityAssignment.objects.filter(
+                    venue=venue,
+                    amenity=amenity,
+                ).delete()
 
         other_name = self.cleaned_data.get("other_amenity")
         other_qty = self.cleaned_data.get("other_quantity")
 
         if other_name and other_qty:
-            new_amenity = Amenity.objects.create(amenity_type=other_name, description=other_name)
-            AmenityAssignment.objects.create(venue=venue, amenity=new_amenity, quantity=other_qty)
+            new_amenity, created = Amenity.objects.get_or_create(
+                amenity_type=other_name,
+                description=other_name,
+            )
+            assignment, created = AmenityAssignment.objects.get_or_create(
+                venue=venue,
+                amenity=new_amenity,
+                quantity=other_qty,
+            )
+            
+            assignment.save()
 
         return venue
-

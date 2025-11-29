@@ -86,7 +86,7 @@
     <div class="row row-cols-md-2 gx-3 gy-5 mx-5" style="color: #162A2B;">
     {% for venue in object_list %}
         <div class="col-5 d-flex justify-content-center">
-            <div style="border-radius: 25px; box-shadow: 10px 10px #B6B3AC">
+            <div style="border-radius: 25px;">
                 <div class="text-center fs-3 fst-italic border-dark py-1"  
                      style="background-color: #5E6C5B; color: #F3EFE6; border-radius: 25px 25px 0px 0px;">
                     <a href="{% url 'venues:venues-detail' venue.pk %}" style="color: #F3EFE6; text-decoration: none;">
