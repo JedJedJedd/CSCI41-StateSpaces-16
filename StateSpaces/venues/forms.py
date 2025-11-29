@@ -4,7 +4,7 @@ from .models import Building, Venue, Amenity, AmenityAssignment
 class BuildingForm(forms.ModelForm):
     class Meta:
         model = Building
-        fields = ["building_name", "street", "city"]
+        fields = ["building_name", "district", "street", "city"]
 
 
 class VenueForm(forms.ModelForm):
