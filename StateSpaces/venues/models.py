@@ -22,9 +22,14 @@ class Venue(models.Model):
 
     VENUE_TYPE_CHOICES = [
         ('Conference', 'Conference'),
-        ('Hall', 'Hall'),
+        ('Function Hall', 'Function Hall'),
+        ('Banquet Hall', 'Banquet Hall'),
         ('Auditorium', 'Auditorium'),
-        ('Study Room', 'Study Room')
+        ('Study Room', 'Study Room'),
+        ('Computer Workstations', 'Computer Workstations'),
+        ('Meeting room', 'Meeting room'),
+        ('Pantry', 'Pantry'),
+        ('Others', 'Others'),
     ]
 
     YES_NO_CHOICES = [
