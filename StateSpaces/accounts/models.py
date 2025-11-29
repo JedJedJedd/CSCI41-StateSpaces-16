@@ -1,3 +1,11 @@
+"""
+Models for user profiles and team assignments.
+
+Team - Represents a group that agents belong to.
+CustomerProfile - Extends Django's User model with customer-specific details.
+AgentProfile - Extends Django's User model with agent-specific details.
+"""
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
