@@ -26,7 +26,7 @@ class ReservationCreateView(LoginRequiredMixin, CreateView):
     template_name = 'reservations/reservation_form.html'
 
     def form_valid(self, form):
-        form.instance.user = self.request.user
+        form.instance.customer = self.request.user.customer_profile
         return super().form_valid(form)
 
     def get_success_url(self):
