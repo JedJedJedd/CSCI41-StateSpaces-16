@@ -4,6 +4,7 @@ from django.urls import reverse
 # Create your models here.
 class Building(models.Model):
     building_name = models.CharField(max_length=255)
+    district = models.CharField(max_length=255)
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     
