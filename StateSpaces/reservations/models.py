@@ -24,6 +24,14 @@ class Reservation(models.Model):
     #https://stackoverflow.com/questions/68418311/why-we-use-args-and-kwargs-in-super-save
     def clean(self):
         super().clean()
+        errors = []
+
+        if self.number_of_participants > self.venue.venue_capacity:
+            errors.append(
+                f"Selected participant count exceeds venue's max capacity of {self.venue.venue_capacity} people"
+            )
+
+
         new_start = self.start_datetime()
         new_end = self.end_datetime()
 
@@ -38,7 +46,13 @@ class Reservation(models.Model):
         ]
 
         if conflicts:
-            raise ValidationError("This time slot conflicts with an existing reservation.")
+            errors.append(
+                "This time slot conflicts with an existing reservation."
+            )
+        
+        if errors:
+            raise ValidationError(errors)
+
 
     def save(self, *args, **kwargs):
         self.clean()
