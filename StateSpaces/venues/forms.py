@@ -14,7 +14,7 @@ class VenueForm(forms.ModelForm):
             field_name = f"amenity_{amenity.id}"
             qty_field_name = f"amenity_qty_{amenity.id}"
             self.fields[field_name] = forms.BooleanField(required=False, label=amenity.amenity_type)
-            self.fields[qty_field_name] = forms.IntegerField(required=False, min_value=1, initial=1, label="Quantity")
+            self.fields[qty_field_name] = forms.IntegerField(required=False, min_value=1, initial=1, label=f"{amenity.amenity_type} Quantity")
 
     #amenity = forms.ModelChoiceField(queryset=Amenity.objects.all(), required=False, label="Amenity")
     #amenity_quantity = forms.IntegerField(required=False, min_value=1, label="Amenity quantity")
@@ -25,6 +25,30 @@ class VenueForm(forms.ModelForm):
     class Meta:
         model = Venue
         fields = ['venue_name', 'building_floor', 'venue_type', 'venue_capacity', 'venue_floor_area', 'under_renovation', 'building']
+        widgets = {
+            'venue_name': forms.TextInput(attrs={
+                'style': 'background-color:#F4EFE6;'
+            }),
+            'building_floor': forms.TextInput(attrs={
+                'type': "number",
+                'style': 'background-color:#F4EFE6;'
+            }),
+            'venue_type': forms.Select(attrs={
+                'style': 'background-color:#F4EFE6;'
+            }),
+            'venue_capacity': forms.TextInput(attrs={
+                'type': "number",
+                'style': 'background-color:#F4EFE6;'
+            }),
+            'venue_floor_area': forms.TextInput(attrs={
+                'type': "number",
+                'style': 'background-color:#F4EFE6;'
+            }),
+            'building': forms.Select(attrs={
+                'style': 'background-color:#F4EFE6;'
+            }),
+
+        }
 
     def save(self, commit=True):
         venue = super().save(commit=commit)
@@ -44,15 +68,3 @@ class VenueForm(forms.ModelForm):
 
         return venue
 
-
-
-class AmenityForm(forms.ModelForm):
-    class Meta:
-        model = Amenity
-        fields = ['amenity_type', 'description']
-
-
-class AmenityAssignmentForm(forms.ModelForm):
-    class Meta:
-        model = AmenityAssignment
-        fields = ['amenity', 'venue', 'quantity']

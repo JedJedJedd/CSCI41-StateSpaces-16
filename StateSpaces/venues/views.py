@@ -4,9 +4,11 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
-from .models import Venue, AmenityAssignment
+from .models import Venue, AmenityAssignment, Amenity
 from .forms import VenueForm
 from django.db.models import Q
+
+from collections import defaultdict
 
 # Create your views here.
 class VenuesListView(ListView):
@@ -50,7 +52,12 @@ class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      def form_valid(self, form):
           form.instance.agent = self.request.user.agent_profile
           return super().form_valid(form)
-     
+
+     def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["amenities"] = Amenity.objects.all()
+        return ctx
+
 class VenuesDetailView(DetailView):
      model = Venue
      template_name = 'venues/venue_detail.html'
