@@ -1,3 +1,12 @@
+"""
+Models for managing buildings, venues, and amenities.
+
+Building - Represents a building with name, district, street, and city.
+Venue - Represents a venue inside a building.
+Amenity - Represents an amenity that can be assigned to venues.
+AmenityAssignment - Represents the assignment of amenities to venues.
+"""
+
 from django.db import models
 from django.urls import reverse
 

@@ -1,3 +1,10 @@
+"""
+Forms for managing buildings, venues, and their amenities.
+
+BuildingForm - Form for creating or editing Building instances.
+VenueForm - Form for creating or editing Venue instances with dynamic amenity fields.
+"""
+
 from django import forms
 
 from .models import Building, Venue, Amenity, AmenityAssignment

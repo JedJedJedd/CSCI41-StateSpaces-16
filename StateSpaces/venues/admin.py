@@ -1,3 +1,11 @@
+"""
+Admin configuration for venues, buildings, and amenities.
+
+BuildingAdmin - Custom admin for managing buildings and their related venues.
+VenueInline - Inline admin to display venues within a building.
+AmenityAssignmentInline - Inline admin to display amenity assignments for a venue.
+"""
+
 from django.contrib import admin
 
 from .models import Venue, Building, AmenityAssignment, Amenity
