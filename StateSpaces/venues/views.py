@@ -24,13 +24,15 @@ class VenuesSearchListView(ListView):
 
           if s:
                qs = qs.filter(Q(venue_name__icontains=s)| Q(building__building_name__icontains=s) | Q(venue_type__icontains=s) |
-                              Q(venue_floor_area__icontains=s) | Q(venue_capacity__icontains=s) | Q(building__city__icontains=s) |
-                              Q(under_renovation__icontains=s))
+                              Q(venue_floor_area__icontains=s) | Q(venue_capacity__icontains=s) | Q(building__city__icontains=s))
                
-          if reno:
-            qs = qs.filter(under_renovation=True)
+          if reno == "yes":
+               qs = qs.filter(under_renovation=True)
+
+          elif reno == "no":
+               qs = qs.filter(under_renovation=False)
           
-          return super().get_queryset()
+          return qs
 
 class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
      model = Venue
