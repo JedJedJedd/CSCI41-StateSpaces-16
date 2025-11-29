@@ -4,7 +4,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
-from .models import Venue
+from .models import Venue, AmenityAssignment
 from .forms import VenueForm
 
 # Create your views here.
@@ -37,7 +37,7 @@ class VenuesDetailView(DetailView):
      
      def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        ctx["amenities"] = self.object.amenityassignment_set.select_related("amenity")
+        ctx["amenities"] = AmenityAssignment.objects.select_related("amenity").filter(venue=self.object)
         ctx["reservations"] = self.object.reservations.all()
         return ctx
    
