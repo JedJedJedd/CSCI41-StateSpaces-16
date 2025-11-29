@@ -93,7 +93,7 @@ class VenuesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
           return super().form_valid(form)
      
      def get_success_url(self):
-          return reverse_lazy('venues:venue-detail', kwargs={'pk': self.get_object().pk})
+          return reverse_lazy('venues:venues-detail', kwargs={'pk': self.get_object().pk})
    
      def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
