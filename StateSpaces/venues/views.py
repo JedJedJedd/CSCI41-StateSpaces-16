@@ -25,6 +25,12 @@ class VenuesSearchListView(ListView):
      model = Venue
      template_name = 'venues/search_venues.html'
 
+     def get_context_data(self, **kwargs):
+          ctx = super().get_context_data(**kwargs)
+          ctx['venues'] = Venue.objects.all()
+          ctx['amenity_assignments'] = AmenityAssignment.objects.all()
+          return ctx
+
      def get_queryset(self):
           qs = super().get_queryset()
           s = self.request.GET.get("q", "")
