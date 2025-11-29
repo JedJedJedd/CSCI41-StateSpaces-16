@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from accounts.models import AgentProfile
+# from reservations.models import Reservation
 
 # Create your models here.
 class Building(models.Model):
@@ -25,7 +27,8 @@ class Venue(models.Model):
     venue_capacity = models.IntegerField()
     venue_floor_area = models.IntegerField()
     under_renovation = models.BooleanField()
-    building = models.ForeignKey(Building, on_delete=models.CASCADE, related_name='venues')
+    building = models.ForeignKey(Building, on_delete=models.RESTRICT, related_name='venues')
+    agent = models.ForeignKey(AgentProfile, on_delete=models.RESTRICT, related_name='venues')
 
     def __str__(self):
         return self.venue_name

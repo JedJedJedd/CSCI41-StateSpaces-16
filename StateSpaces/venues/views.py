@@ -38,5 +38,6 @@ class VenuesDetailView(DetailView):
      def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["amenities"] = self.object.amenityassignment_set.select_related("amenity")
+        ctx["reservations"] = self.object.reservations.all()
         return ctx
    

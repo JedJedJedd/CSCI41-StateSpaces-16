@@ -26,8 +26,8 @@ class Venue(models.Model):
 
     venue_id = models.AutoField(primary_key=True)
     venue_name = models.CharField(max_length=255)
-    building = models.ForeignKey('Building', on_delete=models.PROTECT, related_name='venues')
-    agent = models.ForeignKey('AgentProfile', on_delete=models.SET_NULL, null=True, blank=True, related_name='venues')
+    building = models.ForeignKey('Building', on_delete=models.PROTECT, related_name='venuesAgent')
+    agent = models.ForeignKey('AgentProfile', on_delete=models.SET_NULL, null=True, blank=True, related_name='venuesAgent') 
     floor_area = models.PositiveIntegerField()  # in square meters
     venue_type = models.CharField(max_length=50, choices=VENUE_TYPE_CHOICES)
     venue_capacity = models.PositiveIntegerField()
