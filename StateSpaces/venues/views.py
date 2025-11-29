@@ -31,6 +31,8 @@ class VenuesSearchListView(ListView):
 
           elif reno == "no":
                qs = qs.filter(under_renovation=False)
+          else:
+               qs = qs
           
           return qs
 
