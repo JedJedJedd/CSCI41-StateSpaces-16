@@ -20,15 +20,16 @@
     style="background-color: #D2D9D1; color: #162A2B; box-shadow: 8px 8px #B6B3AC">
         <div class="text-center fs-1 fst-italic">Reservation Details</div>
         <div class="fs-4">
-            <p>Venue:</p>
-            <p>Number of Participants: </p>
-            <p>Start Date & Time: </p>
-            <p>End Date & Time: </p>
+            <p>Venue: {{ object.venue }}</p>
+            <p>Number of Participants: {{ object.number_of_participants }}</p>
+            <p>Start Date & Time: {{ object.start_datetime|date:"M d, Y H:i" }}</p>
+            <p>End Date & Time: {{ object.end_datetime|date:"M d, Y H:i" }}</p>
+            <p>Agent: {{ object.venue.agent }}</p>
         </div>
     </div>
 
     <div class="d-flex flex-row-reverse me-5 mt-5">
-        <button type="submit" class="form-button btn rounded-pill p-3 me-4 fs-5" style="color: #FDFCF7;">Back to home</button>
+        <a href="{% url 'main_interface:homepage' %}" class="form-button btn rounded-pill p-3 me-4 fs-5" style="color: #FDFCF7;">Back to home</a>
     </div>
 
 
