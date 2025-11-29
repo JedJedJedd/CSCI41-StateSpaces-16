@@ -1,16 +1,17 @@
 from django.db import models
 from venues.models import Venue
-from datetime import datetime
+from datetime import datetime, date, timedelta
 from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 # Create your models here.
 class Reservation(models.Model):
     customer = models.ForeignKey("accounts.CustomerProfile", on_delete=models.RESTRICT)
-    number_of_participants = models.IntegerField()
-    reservation_start_time = models.TimeField()
-    reservation_start_date = models.DateField()
-    reservation_end_time = models.TimeField()
-    reservation_end_date = models.DateField()
+    number_of_participants = models.IntegerField(default=1)
+    reservation_start_time = models.TimeField(default=timezone.localtime())
+    reservation_start_date = models.DateField(default=timezone.now())
+    reservation_end_time = models.TimeField(default=timezone.localtime())
+    reservation_end_date = models.DateField(default=timezone.now() + timedelta(days=1))
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE, related_name='reservations')
 
     def start_datetime(self):

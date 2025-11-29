@@ -14,8 +14,8 @@ class Building(models.Model):
         return self.building_name
 
 class Amenity(models.Model):
-    amenity_type = models.CharField(max_length=255)
-    description = models.CharField(max_length=255)
+    amenity_type = models.CharField(max_length=255, default="unknown")
+    description = models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
         return self.amenity_type
@@ -34,9 +34,9 @@ class Venue(models.Model):
         ('N', 'No'),
     ]
 
-    venue_name = models.CharField(max_length=255)
+    venue_name = models.CharField(max_length=255, default="Unknown")
     building_floor = models.IntegerField(default=1)
-    venue_type = models.CharField(max_length=50, choices=VENUE_TYPE_CHOICES)
+    venue_type = models.CharField(max_length=50, choices=VENUE_TYPE_CHOICES, default='Study Room')
     venue_capacity = models.PositiveIntegerField(default=1)
     venue_floor_area = models.PositiveIntegerField(default=1)
     under_renovation = models.BooleanField(default=False)
