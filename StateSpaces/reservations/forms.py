@@ -2,6 +2,11 @@ from django import forms
 from .models import Reservation
 
 class ReservationForm(forms.ModelForm):
+    """Form for creating and editing Reservation instances.
+
+    IncludesBootstrap integration and date/time inputs.
+    """
+     
     class Meta:
         model = Reservation
         fields = [

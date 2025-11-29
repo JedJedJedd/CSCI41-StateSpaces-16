@@ -9,18 +9,27 @@ from .models import Reservation
 
 
 class ReservationCreateView(LoginRequiredMixin, CreateView):
+    """Create a new reservation for the logged-in customer.
+
+    Automatically assigns the current user's profile as the reservation owner.
+    """
+
     model = Reservation
     form_class = ReservationForm
     template_name = 'reservations/reservation_form.html'
 
     def form_valid(self, form):
+        """ Sets current customer's profile as the reservation owner before saving."""
         form.instance.customer = self.request.user.customer_profile
         return super().form_valid(form)
 
     def get_success_url(self):
+        """ Redirects to reservation confirmation page after success"""
         return reverse('reservations:reservation-confirmation', kwargs={'pk': self.object.pk})
 
 class ConfirmationDetailView(DetailView):
+    """Display confirmation details for a newly created reservation."""
+
     model = Reservation
     template_name = 'reservations/reservation_confirmation.html'
     

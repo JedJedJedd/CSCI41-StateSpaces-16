@@ -5,6 +5,7 @@ from .models import AgentProfile, Team
 
 class CreateUserForm(UserCreationForm):
     """Form for registering a new user."""
+
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             'placeholder': 'Username',
@@ -60,6 +61,7 @@ class CreateUserForm(UserCreationForm):
 
 class CreateAgentForm(UserCreationForm):
     """Form for registering a new agent"""
+    
     agent_name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={
