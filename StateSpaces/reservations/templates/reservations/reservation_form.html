@@ -12,38 +12,59 @@
             transform: scale(1.1);
         }
     </style>
-    <form > 
+
+    <form method="post" enctype="multipart/form-data"> 
+        {% csrf_token %}
+        {% comment %} {{ form.as_p }} {% endcomment %}
         <div class="text-center fs-1 m-3" >Reservation Form</div>
         <div class="container">
             <div class="m-5 row ">
                 <div class="col-2"><label for="selectVenue" class="form-label">Select Venue</label></div>
                  <div class="col-4">
-                    <select class="form-select border border-dark border-1" style="background-color: #F4EFE6;"id="selectVenue" aria-label="Default select example">
+                    {{ form.venue }}
+                    {{ form.venue.errors }}
+                    {% comment %} <select class="form-select border border-dark border-1" style="background-color: #F4EFE6;"id="selectVenue" aria-label="Default select example">
                         <option>A better way to implement this is through</option>
                         <option>https://tom-select.js.org/</option>
                         <option>Venue1</option>
                         <option>Venue2</option>
-                    </select>
+                    </select> {% endcomment %}
                 </div>
             </div>
 
             <div class="m-5 row">
                 <div class="col-2"><label for="numParticipants" class="form-label">Number of Participants</label></div>
-                <div class="col-4"><input type="number" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="numParticipants" aria-describedby="numParticipants"></div>
+                <div class="col-4">
+                    {{ form.number_of_participants }}
+                    {{ form.number_of_participants.errors }}
+                    {% comment %} <input type="number" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="numParticipants" aria-describedby="numParticipants"> {% endcomment %}
+                </div>
             </div>
 
             <div class="m-5 row ">
                 <div class="col-2"><label for="startDate" class="form-label">Start Date</label></div>
-                <div class="col-4"><input type="date" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="startDate" aria-describedby="startDate"></div>
+                <div class="col-4">
+                    {{ form.reservation_start_date }}
+                    {% comment %} <input type="date" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="startDate" aria-describedby="startDate"> {% endcomment %}
+                </div>
                 <div class="col-2 text-center"><label for="startTime" class="form-label">Start Time</label></div>
-                <div class="col-4"><input type="time" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="startTime" aria-describedby="startTime"></div>
+                <div class="col-4">
+                    {{ form.reservation_start_time }}
+                    {% comment %} <input type="time" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="startTime" aria-describedby="startTime"> {% endcomment %}
+                </div>
             </div>
             
             <div class="m-5 row ">
                 <div class="col-2"><label for="endDate" class="form-label">End Date</label></div>
-                <div class="col-4"><input type="date" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="endDate" aria-describedby="endDate"></div>
+                <div class="col-4">
+                    {{ form.reservation_end_date }}
+                    {% comment %} <input type="date" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="endDate" aria-describedby="endDate"> {% endcomment %}
+                </div>
                 <div class="col-2 text-center"><label for="endTime" class="form-label">End Time</label></div>
-                <div class="col-4"><input type="time" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="endTime" aria-describedby="endTime"></div>
+                <div class="col-4">
+                    {{ form.reservation_end_time }}
+                    {% comment %} <input type="time" class="form-control border border-dark border-1" style="background-color: #F4EFE6;" id="endTime" aria-describedby="endTime"> {% endcomment %}
+                </div>
             </div>
         </div>
 
