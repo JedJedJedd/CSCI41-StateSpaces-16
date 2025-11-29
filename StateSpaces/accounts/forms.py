@@ -54,12 +54,48 @@ class CreateUserForm(UserCreationForm):
 
 
 class CreateAgentForm(UserCreationForm):
-    agent_name = forms.CharField(max_length=100)
-    contact_number = forms.CharField(max_length=30)
-    team = forms.ModelChoiceField(queryset=Team.objects.all())
-    email = forms.EmailField()
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
+    agent_name = forms.CharField(
+        max_length=100,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Agent Name',
+        })
+    )
+
+    contact_number = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Contact Number',
+        })
+    )
+
+    team = forms.ModelChoiceField(
+        queryset=Team.objects.all(),
+        widget=forms.Select())
+    
+    email = forms.EmailField(
+        widget=forms.EmailInput(attrs={
+            'placeholder': 'Email Address'
+        })
+    )
+
+    first_name = forms.CharField(
+        max_length=30,
+        widget=forms.TextInput(attrs={
+            'placeholder': 'First Name'
+        })
+    )
+
+    last_name = forms.CharField(
+        max_length=30, 
+        widget=forms.TextInput(attrs={
+            'placeholder': 'Last Name'
+        })
+    )
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs.update({'class': 'form-control border border-dark border-1', 'style': 'background-color: #F4EFE6;'})
 
     class Meta:
         model = User
@@ -68,5 +104,16 @@ class CreateAgentForm(UserCreationForm):
             'agent_name', 'contact_number', 'team',
             'password1', 'password2'
         ]
+
+    def save(self, commit=True):
+        user = super().save(commit=commit)
+        AgentProfile.objects.create(
+            user=user,
+            agent_name=self.cleaned_data['agent_name'],
+            contact_number=self.cleaned_data['contact_number'],
+            team=self.cleaned_data['team'],
+        )
+        return user
+    
     
     
