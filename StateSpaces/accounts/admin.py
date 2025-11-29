@@ -1,3 +1,9 @@
+"""
+Admin configuration for user-related models.
+
+Customizes Django admin interface for CustomerProfile, AgentProfile, UserAdmin, TeamAdmin
+"""
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User

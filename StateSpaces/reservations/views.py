@@ -1,3 +1,10 @@
+"""
+Views for managing venue reservations.
+
+ReservationCreateView - Allows a logged-in customer to create a reservation.
+ConfirmationDetailView - Displays confirmation details for a newly created reservation.
+"""
+
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
 from django.views.generic.list import ListView

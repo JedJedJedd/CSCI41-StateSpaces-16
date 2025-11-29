@@ -1,3 +1,13 @@
+"""
+Views for managing venues and their amenities.
+
+VenuesListView - Displays a list of all venues.
+VenuesSearchListView - Allows searching and filtering venues.
+VenuesCreateView - Allows agents to create a new venue.
+VenuesDetailView - Displays details of a specific venue.
+VenuesUpdateView - Allows agents to update an existing venue.
+"""
+
 from collections import defaultdict
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.db.models import Q

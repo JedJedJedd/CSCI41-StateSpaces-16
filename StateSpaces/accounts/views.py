@@ -1,3 +1,12 @@
+"""
+Views for handling user profiles and account-related functions.
+
+ProfileDetailView - Displays individual customer or agent profiles.
+ProfileListView - Lists all customer profiles.
+ProfileCreateView - Handles registration of new customers.
+AgentCreateView - Allows authorized users to register new agents.
+"""
+
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404

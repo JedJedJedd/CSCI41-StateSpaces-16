@@ -1,3 +1,10 @@
+"""
+Models for managing venue reservations.
+
+Reservation - Represents a booking made by a customer at a venue.
+Includes validation for venue capacity, renovation status, and time conflicts.
+"""
+
 from datetime import datetime, date, timedelta
 from django.core.exceptions import ValidationError
 from django.db import models

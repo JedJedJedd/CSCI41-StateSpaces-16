@@ -1,3 +1,10 @@
+"""
+Form for creating and editing reservation instances.
+
+ReservationForm - Handles creating or editing a reservation, including venue selection,
+number of participants, and reservation start/end dates and times.
+"""
+
 from django import forms
 from .models import Reservation
 
