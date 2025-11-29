@@ -6,13 +6,11 @@ class ReservationForm(forms.ModelForm):
         model = Reservation
         fields = [
             'venue',
-            # 'customer_id',
             'number_of_participants',
             'reservation_start_time',
             'reservation_start_date',
             'reservation_end_time',
             'reservation_end_date',
-            # 'agent_id',
         ]
         widgets = {
             'reservation_start_date': forms.DateInput(attrs={

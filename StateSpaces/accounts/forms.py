@@ -4,7 +4,6 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import AgentProfile, Team
 
 class CreateUserForm(UserCreationForm):
-    #display_name = forms.CharField(max_length=63)
     username = forms.CharField(
         widget=forms.TextInput(attrs={
             'placeholder': 'Username',

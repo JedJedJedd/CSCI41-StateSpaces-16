@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from .forms import CreateUserForm, CreateAgentForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-# Create your views here.
 
 
 class ProfileDetailView(DetailView):
@@ -34,7 +33,6 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-        # username = self.kwargs.get('username')
         profile = ctx['profile']
 
         ctx['is_agent'] = isinstance(profile, AgentProfile)
@@ -47,19 +45,6 @@ class ProfileDetailView(DetailView):
         else:
             ctx['all_reservations'] = None
         return ctx
-
-        # code block below is temporary
-        # def get_success_url(self):
-        #     return reverse_lazy(
-        #         'accounts:profile',
-        #         kwargs={'username': self.object.user.customer_name}
-        # )
-        # ctx['profile_user'] = get_object_or_404(User, username=username)
-
-        # if self.request.user.is_authenticated:
-        #     profile = self.request.user.profile
-        # else:      
-        # return ctx
 
 
 class ProfileListView(ListView):

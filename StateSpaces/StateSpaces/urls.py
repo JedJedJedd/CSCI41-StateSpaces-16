@@ -23,7 +23,6 @@ urlpatterns = [
     path('', include('main_interface.urls', namespace="main_interface")),
     path('reservation/', include('reservations.urls', namespace="reservations")),
     path('profile/', include('accounts.urls', namespace="accounts" )),
-    #path('profile/', include('django.contrib.auth.urls')), #profile/login and profile/logout
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('venues/', include('venues.urls', namespace="venues" )),   

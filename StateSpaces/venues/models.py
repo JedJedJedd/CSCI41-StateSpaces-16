@@ -1,7 +1,5 @@
 from django.db import models
 from django.urls import reverse
-# from accounts.models import AgentProfile
-# from reservations.models import Reservation
 
 # Create your models here.
 class Building(models.Model):

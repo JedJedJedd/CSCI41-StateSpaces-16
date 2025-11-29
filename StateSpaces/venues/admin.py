@@ -11,9 +11,6 @@ class AmenityAssignmentInline(admin.TabularInline):
 class BuildingAdmin(admin.ModelAdmin):
     inlines = [VenueInline]
 
-#class VenueAdmin(admin.ModelAdmin):
-    #inlines = [AmenityAssignmentInline]
-
 admin.site.register(Building, BuildingAdmin)
 admin.site.register(Venue)
 admin.site.register(Amenity)

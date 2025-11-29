@@ -16,9 +16,6 @@ class VenueForm(forms.ModelForm):
             self.fields[field_name] = forms.BooleanField(required=False, label=amenity.amenity_type)
             self.fields[qty_field_name] = forms.IntegerField(required=False, min_value=1, initial=1, label=f"{amenity.amenity_type} Quantity")
 
-    #amenity = forms.ModelChoiceField(queryset=Amenity.objects.all(), required=False, label="Amenity")
-    #amenity_quantity = forms.IntegerField(required=False, min_value=1, label="Amenity quantity")
-
     other_amenity = forms.CharField(max_length=255, required=False, label="Other optional amenity")
     other_quantity = forms.IntegerField(required=False, min_value= 1, label="Other amenity quantity")
 

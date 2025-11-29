@@ -1,8 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-# from venues.models import Building
-# Create your models here.
+
 class Team(models.Model):                                                       
     name = models.CharField(max_length=100)
     team_assignment = models.TextField()
