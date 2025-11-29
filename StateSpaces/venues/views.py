@@ -80,11 +80,22 @@ class VenuesDetailView(DetailView):
         ctx["reservations"] = self.object.reservations.all()
         return ctx
      
-class VenueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+class VenuesUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
      model = Venue
      template_name = 'venues/venue_update.html'
      form_class = VenueForm
 
+     def test_func(self):
+          return hasattr(self.request.user, "agent_profile")
+
+     def form_valid(self, form):
+          form.instance.agent = self.request.user.agent_profile
+          return super().form_valid(form)
+     
      def get_success_url(self):
           return reverse_lazy('venues:venue-detail', kwargs={'pk': self.get_object().pk})
    
+     def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx["amenities"] = Amenity.objects.all()
+        return ctx
