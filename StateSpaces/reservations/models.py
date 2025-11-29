@@ -29,9 +29,14 @@ class Reservation(models.Model):
 
         if self.number_of_participants > self.venue.venue_capacity:
             errors.append(
-                f"Selected participant count exceeds venue's max capacity of {self.venue.venue_capacity} people"
+                f"Selected participant count exceeds venue's max capacity of {self.venue.venue_capacity} people."
             )
-
+        
+        if self.venue.under_renovation:
+            errors.append(
+                "The venue you are trying to reserve is under renovation. Select a different venue."
+            )
+            
 
         new_start = self.start_datetime()
         new_end = self.end_datetime()
