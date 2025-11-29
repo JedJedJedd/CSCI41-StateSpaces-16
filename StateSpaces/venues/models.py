@@ -1,14 +1,14 @@
 from django.db import models
 from django.urls import reverse
-from accounts.models import AgentProfile
+# from accounts.models import AgentProfile
 # from reservations.models import Reservation
 
 # Create your models here.
 class Building(models.Model):
-    building_name = models.CharField(max_length=255)
-    district = models.CharField(max_length=255)
-    street = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
+    building_name = models.CharField(max_length=255, default="Unknown Building")
+    district = models.CharField(max_length=255, default="Unknown District")
+    street = models.CharField(max_length=255, default="Unknown Street")
+    city = models.CharField(max_length=255, default="Unknown City")
     
     def __str__(self):
         return self.building_name
@@ -21,14 +21,27 @@ class Amenity(models.Model):
         return self.amenity_type
     
 class Venue(models.Model):
+
+    VENUE_TYPE_CHOICES = [
+        ('Conference', 'Conference'),
+        ('Hall', 'Hall'),
+        ('Auditorium', 'Auditorium'),
+        ('Study Room', 'Study Room')
+    ]
+
+    YES_NO_CHOICES = [
+        ('Y', 'Yes'),
+        ('N', 'No'),
+    ]
+
     venue_name = models.CharField(max_length=255)
-    building_floor = models.IntegerField()
-    venue_type = models.CharField(max_length=255)
-    venue_capacity = models.IntegerField()
-    venue_floor_area = models.IntegerField()
-    under_renovation = models.BooleanField()
+    building_floor = models.IntegerField(default=1)
+    venue_type = models.CharField(max_length=50, choices=VENUE_TYPE_CHOICES)
+    venue_capacity = models.PositiveIntegerField(default=1)
+    venue_floor_area = models.PositiveIntegerField(default=1)
+    under_renovation = models.BooleanField(default=False)
     building = models.ForeignKey(Building, on_delete=models.RESTRICT, related_name='venues')
-    agent = models.ForeignKey(AgentProfile, on_delete=models.RESTRICT, related_name='venues')
+    agent = models.ForeignKey("accounts.AgentProfile", on_delete=models.RESTRICT, related_name='venues')
 
     def __str__(self):
         return self.venue_name

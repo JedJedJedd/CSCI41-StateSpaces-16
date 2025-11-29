@@ -23,14 +23,17 @@
                     <p><strong>Type:</strong> {{ object.venue_type }}</p>
                     <p><strong>Capacity:</strong> {{ object.venue_capacity }}</p>
                     <p><strong>Floor Area:</strong> {{ object.venue_floor_area }} m²</p>
-                    <p><strong>Status:</strong>
-                    <p><strong>Agent:</strong> {{ object.agent }}</p>
+                    <p>
+                        <strong>Status:</strong>
                         {% if object.under_renovation %}
                             Under Renovation
                         {% else %}
                             Bookable
                         {% endif %}
                     </p>
+                    <p><strong>Agent:</strong> {{ object.agent }}</p>
+
+                    
                 </div>
             </div>
         </div>

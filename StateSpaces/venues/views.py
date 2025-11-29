@@ -28,7 +28,7 @@ class VenuesCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
           return reverse_lazy('venues:venues-list')
      
      def form_valid(self, form):
-          form.instance.author = self.request.user.agent_profile
+          form.instance.agent = self.request.user.agent_profile
           return super().form_valid(form)
      
 class VenuesDetailView(DetailView):
